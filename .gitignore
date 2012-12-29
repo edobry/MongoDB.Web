@@ -3,6 +3,8 @@ _ReSharper.*
 */obj
 *.resharper.user
 *.suo
+/MongoDB.Web/obj
+/MongoDB.Web/bin
 *.bak
 *.sln.cache
 *.user
@@ -12,3 +14,13 @@ _ReSharper.*
 Help/*
 build/*
 nuget/*
+# Visual Studio
+[Dd]ebug/
+[Rr]elease/
+*.sln.cache
+*.csproj.user
+
+# Resharper
+*[Rr]e[Ss]harper.user
+_ReSharper.*/
+

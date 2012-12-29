@@ -32,7 +32,7 @@ namespace MongoDB.Web.Providers
         public override int DeleteProfiles(string[] usernames)
         {
             var query = Query.And(Query.EQ("ApplicationName", this.ApplicationName), Query.In("Username", new BsonArray(usernames)));
-            return ( int )this.mongoCollection.Remove( query ).DocumentsAffected;
+            return (int)this.mongoCollection.Remove(query).DocumentsAffected;
         }
 
         public override int DeleteProfiles(ProfileInfoCollection profiles)
@@ -63,13 +63,13 @@ namespace MongoDB.Web.Providers
         public override int GetNumberOfInactiveProfiles(ProfileAuthenticationOption authenticationOption, DateTime userInactiveSinceDate)
         {
             var query = GetQuery(authenticationOption, null, userInactiveSinceDate);
-            return ( int )this.mongoCollection.Count( query );
+            return (int)this.mongoCollection.Count(query);
         }
 
         public override SettingsPropertyValueCollection GetPropertyValues(SettingsContext context, SettingsPropertyCollection collection)
         {
             var settingsPropertyValueCollection = new SettingsPropertyValueCollection();
-
+            
             if (context == null || collection == null || collection.Count < 1)
             {
                 return settingsPropertyValueCollection;
@@ -138,7 +138,7 @@ namespace MongoDB.Web.Providers
         {
             this.ApplicationName = config["applicationName"] ?? HostingEnvironment.ApplicationVirtualPath;
 
-            this.mongoCollection = MongoServer.Create(ConnectionHelper.GetDatabaseConnectionString(config)).GetDatabase(config["database"] ?? "ASPNETDB").GetCollection(config["collection"] ?? "Profiles");
+            this.mongoCollection = MongoDatabase.Create(ConnectionHelper.GetDatabaseConnectionString(config)).GetCollection(config["collection"] ?? "Profiles");
             this.mongoCollection.EnsureIndex("ApplicationName");
             this.mongoCollection.EnsureIndex("ApplicationName", "IsAnonymous");
             this.mongoCollection.EnsureIndex("ApplicationName", "IsAnonymous", "LastActivityDate");
@@ -208,7 +208,7 @@ namespace MongoDB.Web.Providers
         {
             var query = GetQuery(authenticationOption, usernameToMatch, userInactiveSinceDate);
 
-            totalRecords = ( int )this.mongoCollection.Count( query );
+            totalRecords = (int)this.mongoCollection.Count(query);
 
             var profileInfoCollection = new ProfileInfoCollection();
 
