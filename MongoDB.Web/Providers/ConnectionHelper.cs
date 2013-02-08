@@ -1,9 +1,7 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using MongoDB.Web.Config;
 using System.Collections.Specialized;
 using System.Configuration;
-
-using MongoDB.Driver;
-using MongoDB.Web.Config;
 
 namespace MongoDB.Web.Providers
 {
@@ -35,7 +33,7 @@ namespace MongoDB.Web.Providers
         /// <returns></returns>
         internal static string GetDatabaseName(MongoDbWebSection mongoDbWebSection, string connectionString, NameValueCollection config)
         {
-            MongoUrl mongoUrl = MongoUrl.Create(connectionString);
+            var mongoUrl = MongoUrl.Create(connectionString);
 			if (!string.IsNullOrEmpty(mongoUrl.DatabaseName))
 				return mongoUrl.DatabaseName;
 

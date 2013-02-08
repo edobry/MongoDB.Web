@@ -170,9 +170,7 @@ namespace MongoDB.Web.Providers
             this._SessionStateSection = ConfigurationManager.GetSection("system.web/sessionState") as SessionStateSection;
 			this._MongoWebSection = ConfigurationManager.GetSection("mongoDbWeb") as MongoDbWebSection;
 
-            this.mongoCollection = MongoDatabase.Create(ConnectionHelper.GetDatabaseConnectionString(config)).GetCollection(config["collection"] ?? "SessionState");
-				.GetDatabase(ConnectionHelper.GetDatabaseName(_MongoWebSection, config))
-				.GetCollection<T>(config["collection"] ?? _MongoWebSection.SessionState.MongoCollectionName);
+            this._MongoCollection = MongoDatabase.Create(ConnectionHelper.GetDatabaseConnectionString(config)).GetCollection<T>(config["collection"] ?? _MongoWebSection.SessionState.MongoCollectionName);
 
 			_SessionDataClassMap = new BsonClassMap<T>();
 			_SessionDataClassMap.AutoMap();
